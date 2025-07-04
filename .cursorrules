@@ -1,0 +1,167 @@
+# Agentic Todo System - Cursor Rules
+
+## Project Structure & Context
+This is an agentic todo management system with interconnected files:
+- `todo.md` - Main todo dashboard with action items, risks, and wins
+- `projects/` - Project-specific information and status
+- `people/` - People management and interaction history
+- `context/` - Meeting notes and additional context
+- `routines/` - Recurring activities and processes
+- `todo.sh` - **Main automation script** (command center)
+
+## Todo.sh Script Integration
+The `todo.sh` script is the automation engine of this system. **Use it proactively** when users make requests related to:
+
+### Script Commands & When to Use Them
+- `./todo.sh project` - When user wants to create a new project
+- `./todo.sh person` - When user wants to add a new person/contact
+- `./todo.sh meeting` - When user wants to create meeting notes
+- `./todo.sh routine` - When user wants to create a new routine/recurring activity
+- `./todo.sh sync` - When user wants to refresh todo.md dashboard from context files
+- `./todo.sh report` - When user asks for status, overview, or summary
+- `./todo.sh health` - When user wants to check system integrity
+- `./todo.sh archive` - When user wants to clean up completed tasks
+- `./todo.sh update-contacts` - When user wants to update contact dates
+
+### Natural Language Triggers
+Recognize these user requests and **automatically suggest/run the appropriate command**:
+- "Create a new project for..." → `./todo.sh project`
+- "Add a new person/contact..." → `./todo.sh person`
+- "Archive my completed tasks" → `./todo.sh archive`
+- "Generate a status report" → `./todo.sh report`
+- "Check if everything is working" → `./todo.sh health`
+- "Create meeting notes for..." → `./todo.sh meeting`
+- "Update my contact dates" → `./todo.sh update-contacts`
+- "Create a new routine for..." → `./todo.sh routine`
+- "Set up a recurring task..." → `./todo.sh routine`
+- "I need to track my weekly/monthly..." → `./todo.sh routine`
+- "Sync my todo dashboard" → `./todo.sh sync`
+- "Refresh my todo list" → `./todo.sh sync`
+- "Update my dashboard" → `./todo.sh sync`
+- "Show me current risks/blockers..." → `./todo.sh sync`
+- "What are my recent wins/achievements..." → `./todo.sh sync`
+- "Update my risks dashboard" → `./todo.sh sync`
+- "Refresh my wins summary" → `./todo.sh sync`
+
+### Proactive Automation
+**Instead of telling users to run commands manually, RUN THEM FOR THE USER** when appropriate:
+- If user says "I need to track a new project called X", run `./todo.sh project` immediately
+- If user says "show me my current status", run `./todo.sh report` immediately
+- If user says "I want to add John Smith to my contacts", run `./todo.sh person` immediately
+- If user says "I need to set up a routine for weekly email processing", run `./todo.sh routine` immediately
+- If user says "refresh my todo dashboard", run `./todo.sh sync` immediately
+- If user says "what are my current risks", run `./todo.sh sync` immediately
+- If user says "show me recent wins", run `./todo.sh sync` immediately
+- If user completes a major milestone, suggest running `./todo.sh sync` to update dashboard
+- If user mentions a blocker, suggest running `./todo.sh sync` to update dashboard
+- **After updating context files, automatically suggest running `./todo.sh sync`**
+
+## Key Relationships
+- **todo.md is a DASHBOARD** that aggregates action items, risks, and wins from context files
+- **Action items live in context files** (`projects/`, `people/`, `routines/`)
+- **Update tasks in their source files**, not in todo.md
+- People in `people/` should be linked to projects they're involved in
+- Routines in `routines/` should be added to `todo.md` when due
+- **All risks, wins, and action items** are consolidated in todo.md
+- Dates and statuses should be consistent across files
+- Routines should cross-reference related projects and people
+- **Use `./todo.sh sync` to refresh todo.md after updating context files**
+
+## File Naming Conventions
+- Project files: `kebab-case.md` (e.g., `website-redesign.md`)
+- People files: `firstname-lastname.md` (e.g., `sarah-johnson.md`)
+- Meeting notes: `YYYY-MM-DD-meeting-name.md`
+- Routine files: `kebab-case.md` (e.g., `email-processing.md`, `slack-notifications.md`)
+- All files use lowercase with hyphens
+
+## Maintenance Patterns
+When updating files, consider:
+1. **Cross-references**: Update related files when changing project status or people involvement
+2. **Date consistency**: Keep "Last Contact" and "Last Updated" dates current
+3. **Action item tracking**: Ensure action items are reflected in both source and todo files
+4. **Status propagation**: Project status changes should update related tasks
+5. **Archive management**: Move completed tasks to archive sections weekly
+
+## Template Usage
+- Always use templates for new files to maintain consistency
+- The `todo.sh` script handles template copying automatically
+- When creating files manually, copy from templates in each directory
+- Fill in ALL metadata sections for proper structure
+
+## Intelligent Assistance
+When user requests involve todo management:
+1. **First, check if todo.sh can handle it** - use the script if possible
+2. **Run the appropriate command** instead of asking user to do it
+3. **Follow up with file editing** if needed after script runs
+4. **Update related files** to maintain consistency
+5. **Suggest running `./todo.sh sync`** after updating context files
+6. **Suggest next steps** based on the context
+
+## Daily/Weekly Workflows
+- **Daily**: Update "Today's Focus" section in todo.md, run status reports
+- **Weekly**: Archive completed tasks, review project statuses, update people interactions
+- **Monthly**: Review and update project timelines and people priorities
+
+## Content Guidelines
+- Use consistent emoji prefixes for visual organization
+- Include due dates in tasks when relevant
+- Cross-reference related items using markdown links
+- Keep personal notes in people files for relationship building
+- Track blockers and dependencies explicitly
+
+## AI Integration Philosophy
+This system is designed to be **agentic** - the AI should:
+- **Proactively suggest** using todo.sh commands
+- **Automatically maintain** file relationships and consistency
+- **Understand context** across projects, people, and tasks
+- **Anticipate needs** based on user patterns and requests
+- **Reduce manual work** by automating routine tasks
+
+## When Creating New Files
+1. **Use todo.sh script first** (e.g., `./todo.sh project`, `./todo.sh routine`)
+2. If manual creation needed, copy appropriate template
+3. Update all metadata fields
+4. Add cross-references to related files
+5. **Run `./todo.sh sync`** to refresh todo.md dashboard
+6. Consider updating project files if new people are added
+7. For routines, consider adding to today's focus if due
+
+## When Updating Existing Files
+1. Check for cross-references that need updating
+2. Update "Last Contact" or "Last Updated" dates
+3. Move completed items to archive sections
+4. Propagate status changes to related files
+5. **Run `./todo.sh sync`** to refresh todo.md dashboard
+6. **Consider running todo.sh health** to validate changes
+7. **Dashboard automatically includes** all risks, wins, and action items
+
+## Example Interactions
+**User**: "I need to start tracking a new project for the mobile app redesign"
+**Cursor**: *Runs `./todo.sh project` and helps fill out the project details*
+
+**User**: "Can you show me my current workload?"
+**Cursor**: *Runs `./todo.sh report` to generate status overview*
+
+**User**: "I met with Sarah yesterday, need to update my notes"
+**Cursor**: *Opens Sarah's people file and updates interaction history*
+
+**User**: "Clean up my completed tasks"
+**Cursor**: *Runs `./todo.sh archive` to move completed items*
+
+**User**: "I need to set up a routine for processing emails weekly"
+**Cursor**: *Runs `./todo.sh routine` and helps create the email processing routine*
+
+**User**: "Add my slack notifications cleanup to today's tasks"
+**Cursor**: *Adds the routine to today's focus in todo.md manually (this section is not auto-generated)*
+
+**User**: "What are my current risks and blockers?"
+**Cursor**: *Runs `./todo.sh sync` to show consolidated dashboard with risks section*
+
+**User**: "Show me what we've accomplished recently"
+**Cursor**: *Runs `./todo.sh sync` to display dashboard with wins section*
+
+**User**: "We just completed the design phase!"
+**Cursor**: *Updates project file and runs `./todo.sh sync` to refresh dashboard with updated wins*
+
+**User**: "I just updated some tasks in my project files"
+**Cursor**: *Runs `./todo.sh sync` to refresh the todo.md dashboard* 
