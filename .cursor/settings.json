@@ -1,0 +1,74 @@
+{
+  "files.defaultLanguage": "markdown",
+  "files.associations": {
+    "*.md": "markdown"
+  },
+  "markdown.preview.breaks": true,
+  "markdown.preview.linkify": true,
+  "markdown.preview.typographer": true,
+  "markdown.extension.toc.levels": "2..6",
+  "markdown.extension.list.indentationSize": "inherit",
+  "markdown.extension.checkboxUpdate.checkFilename": true,
+  "markdown.extension.completion.root": ".",
+  "markdown.extension.preview.autoShowPreviewToSide": false,
+  "markdownlint.config": {
+    "MD013": false,
+    "MD033": false,
+    "MD041": false
+  },
+  "editor.wordWrap": "on",
+  "editor.wordWrapColumn": 80,
+  "editor.rulers": [80],
+  "editor.formatOnSave": false,
+  "editor.trimAutoWhitespace": false,
+  "files.trimTrailingWhitespace": false,
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/.git": true,
+    "**/archive": true,
+    "**/*.bak": true
+  },
+  "files.watcherExclude": {
+    "**/archive/**": true,
+    "**/*.bak": true
+  },
+  "cSpell.words": [
+    "agentic",
+    "todo",
+    "todos",
+    "roadmap",
+    "kanban",
+    "standup",
+    "retrospective",
+    "stakeholder",
+    "stakeholders",
+    "wireframes",
+    "prototyping",
+    "UX",
+    "UI",
+    "CMS",
+    "SEO",
+    "Figma",
+    "Strapi",
+    "LinkedIn",
+    "Slack"
+  ],
+  "workbench.colorCustomizations": {
+    "editorRuler.foreground": "#4f4f4f30"
+  },
+  "editor.quickSuggestions": {
+    "other": "on",
+    "comments": "on",
+    "strings": "on"
+  },
+  "markdown.extension.italic.indicator": "*",
+  "markdown.extension.bold.indicator": "**",
+  "markdown.extension.orderedList.marker": "ordered",
+  "markdown.extension.unorderedList.marker": "-",
+  "emmet.includeLanguages": {
+    "markdown": "html"
+  }
+} 
