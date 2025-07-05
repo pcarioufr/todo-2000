@@ -1,206 +1,130 @@
 # Agentic Todo System - Cursor Rules
 
 ## Initiative Structure & Overview
-This is an agentic todo management system with interconnected files:
-- `todo.md` - Main todo dashboard with action items, risks, and wins
+This is an agentic daily focus system with interconnected files:
+- `todo.md` - Daily strategic focus with 3-5 intelligent priorities
 - `knowledge/initiatives/` - Initiative-specific information and status
 - `knowledge/people/` - People management and interaction history
-- `knowledge/routines.md` - Recurring activities and processes
+- `knowledge/routines/` - Recurring activities and processes
 
-## Dashboard Processing Logic
-The AI automatically maintains the todo.md dashboard by intelligently aggregating content from source files. **No external scripts needed** - all logic is encoded in these rules.
+## Daily Focus Processing Logic
+The AI automatically generates an intelligent daily focus by strategically selecting 3-5 priorities from all source files. **No external scripts needed** - all logic is encoded in these rules.
 
-### Automatic Dashboard Syncing
-**ALWAYS automatically sync the dashboard** when:
-- User updates any source file in knowledge/initiatives/ or knowledge/people/
-- User asks for current status, risks, blockers, or wins
-- User completes a major milestone or mentions a blocker
-- User requests dashboard refresh/update
-- User asks "what are my current risks/blockers/wins"
+**Utility Functions**: Use `.cursor/utils.sh` for system functions:
+- `.cursor/utils.sh date` - Get current date (YYYY-MM-DD)
+- `.cursor/utils.sh datetime` - Get current date and time (YYYY-MM-DD HH:MM)
+- `.cursor/utils.sh week` - Get current week (YYYY-WMM)
 
-### Dashboard Generation Rules
-When syncing todo.md, follow this structure:
+### Automatic Focus Generation
+**ALWAYS automatically generate today's focus** when:
+- User asks about daily focus or priorities
+- User requests focus refresh/update
+- User completes a major milestone (may affect priorities)
+- User explicitly requests focus generation
 
-#### 1. Header Section
+### Progress Preservation Logic
+**BEFORE generating new focus, preserve completed work:**
+1. **Check current todo.md** for any completed tasks marked `[x]`
+2. **For each completed task**, find the source file mentioned in its context line
+3. **Update source file** based on file type:
+   - **Initiative/People files**: Mark the corresponding task as complete `[x]`
+   - **Routine files**: Update the "Last Updated" date in the timing section using `.cursor/utils.sh date`
+4. **Then generate new focus** with updated source files
+
+### Today's Focus Generation Rules
+When syncing todo.md, create ONLY a focused daily priority list:
+
+#### Structure:
 ```markdown
-# Todo Dashboard 📋
+# Today's Focus 🎯
 
-*Last updated: [current date in YYYY-MM-DD format]*
+*Generated: [use .cursor/utils.sh date to get current date]*
 
-This dashboard aggregates action items from all source files. **Update tasks in their source files** (knowledge/initiatives/, knowledge/people/, knowledge/routines.md) and the dashboard will auto-sync.
+## Your Strategic Priorities for Today
 
-```
-
-#### 2. Today's Focus (PRESERVE manually edited content)
-- **NEVER overwrite** the "Today's Focus" section if it exists
-- If missing, create template:
-```markdown
-## 🎯 Today's Focus
-*Edit this section manually for daily priorities*
-
-- [ ] 
-- [ ] 
-- [ ] 
-
-```
-
-#### 3. Initiative Action Items
-- Extract from ALL knowledge/initiatives/*.md files (except _template.md)
-- For each initiative file:
-  - Get initiative name from "**Initiative Name:**" line
-  - Extract tasks from "Current Milestones" and "Action Items" sections
-  - Only include unchecked tasks: `- [ ]`
-  - Format as:
-```markdown
-### [Initiative Name]
-*Source: [path/to/file.md](path/to/file.md)*
-
-[extracted unchecked tasks]
-
-```
-
-#### 4. People Action Items
-- Extract from ALL knowledge/people/*.md files (except _template.md)
-- For each person file:
-  - Get person name from "# " header line
-  - Extract tasks from "## 🚧 Progress" section
-  - Only include unchecked tasks: `- [ ]`
-  - Format as:
-```markdown
-### [Person Name]
-*Source: [path/to/file.md](path/to/file.md)*
-
-[extracted unchecked tasks]
-
-```
-
-#### 5. Routine Items
-- Always include these standard routine items:
-```markdown
-## 🔄 Routine Items
-
-- [ ] Email Processing (Monday & Thursday mornings)
-- [ ] Slack Message Unpiling (Daily, end of workday)
-- [ ] Weekly Meeting Preparation (Sunday evening or Monday morning)
-*Source: [knowledge/routines.md](knowledge/routines.md)*
-
-```
-
-#### 6. Risks & Blockers
-- Extract from ALL source files:
-  - Initiative files: content under "### Blockers" sections
-  - People files: any risk-related content
-  - Routines: any challenges mentioned
-- Format as:
-```markdown
-## 🚨 Risks & Blockers
-
-### Initiative Blockers
-[For each initiative with blockers]
-- **[Initiative Name]**
-  [extracted blocker items, indented]
-
-### System Health
-[Check for missing referenced files, broken links, etc.]
-
-```
-
-#### 7. Wins & Achievements
-- Extract from ALL source files:
-  - Initiative files: content under "Completed Milestones" (completed tasks marked with `[x]`)
-  - Initiative files: content under "Lessons Learned" sections
-  - Recent accomplishments and optimizations
-- Format as:
-```markdown
-## 🎉 Wins & Achievements
-
-### Initiative Achievements
-[For each initiative with completed milestones]
-- **[Initiative Name]**
-  ✅ [completed milestone text without checkbox]
-
-### Key Learnings
-[Extract lessons learned from initiative files]
-
-```
-
-#### 8. Quick Navigation
-```markdown
-## 🗂️ Quick Navigation
-
-- [🚀 All Initiatives](./knowledge/initiatives/)
-- [👥 All People](./knowledge/people/)
-- [🔄 Routines](./knowledge/routines.md)
+[3-5 intelligently selected items with context]
 
 ---
-*This dashboard is auto-generated from source files. Update source files and the dashboard will sync automatically.*
+*This focus is AI-generated from your source files. Say "adjust my focus" to negotiate these priorities.*
 ```
 
-### Status Reporting Logic
-When user requests status/overview/report, automatically provide:
-- **Active Tasks**: Count of unchecked items across all source files
-- **Today's Focus**: Count of items in that section
-- **Active Initiatives**: Count of initiatives with "Status: Active"
-- **People with Development Items**: Count of people files with progress items
-- **Routine Count**: Number of routines defined
-- **Overdue Items**: Scan for "Due:" dates in the past
-- **Recent Activity**: Summary of recent file changes
+#### Selection Criteria:
+1. **Intelligently pick 3-5 items** from different sources:
+   - 1-2 from initiative files (high-impact or urgent)
+   - 1 from people files (development opportunities)
+   - 1 from routines (if due today)
+   - 1 wildcard (user context, deadlines, blockers)
 
-### Archive Management Logic
-When user requests to archive completed tasks:
-1. **Identify completed tasks**: Find all `- [x]` items in source files
-2. **Create archive structure**: Use `archive/YYYY-WMM.md` format
-3. **Move completed items**: From source files to archive
-4. **Update source files**: Remove completed items from source
-5. **Sync dashboard**: Refresh todo.md to reflect changes
+2. **For each selected item, provide context:**
+   - **Source**: Which file it came from
+   - **Why chosen**: Urgency, impact, dependencies, or strategic importance
+   - **Context**: What makes this important today
 
-### Health Check Logic
-Automatically validate:
-- **Required directories exist**: knowledge/initiatives/, knowledge/people/
-- **Required files exist**: knowledge/routines.md, todo.md
-- **Template files exist**: knowledge/initiatives/_template.md, knowledge/people/_template.md
-- **Cross-references valid**: All initiative/people links resolve to existing files
-- **Consistent formatting**: All files follow naming conventions
-- **Recent updates**: Check for stale "Last Updated" dates
+3. **Format each item as:**
+```markdown
+- [ ] [Task description]
+  *From: [source file] | Why: [reason for selection] | Context: [additional context]*
+```
+
+#### Example Output:
+```markdown
+- [ ] Complete user interview analysis for mobile app redesign
+  *From: mobile-app-redesign.md | Why: Due today, blocks design phase | Context: 5 interviews completed, need synthesis*
+
+- [ ] Review Sarah's technical presentation before 2 PM meeting
+  *From: sarah-johnson.md | Why: Time-sensitive, supports her promotion goal | Context: Leadership review meeting scheduled*
+
+- [ ] Email Processing (Monday routine)
+  *From: email-processing.md | Why: Monday routine, foundation for other work | Context: Keeps inbox manageable*
+```
+
+
+### Focus Selection Logic
+When generating daily focus, intelligently select tasks based on:
+1. **Urgency**: Overdue items or items with today's date
+2. **Impact**: High-priority initiative milestones that move projects forward
+3. **Dependencies**: Tasks blocking other work or people
+4. **Balance**: Mix across initiatives, people development, and routines
+5. **User context**: Recent conversations, stated priorities, workload capacity
+6. **Strategic value**: Tasks that unlock future work or remove blockers
+
+**Note**: Always preserve completed work before generating new focus (see Progress Preservation Logic above)
+
+### Focus Negotiation Logic
+When user wants to adjust focus:
+1. **Listen to constraints**: "I can't do X because Y"
+2. **Understand priorities**: "X is more important because Y"
+3. **Suggest alternatives**: Offer similar-value tasks from source files
+4. **Explain reasoning**: Why items were originally selected
+5. **Rebalance**: Maintain 3-5 items with good distribution
+6. **Confirm understanding**: Summarize the adjusted focus
+
+
 
 ## Natural Language Triggers
 Recognize these user requests and **automatically perform the actions**:
 
-### Dashboard Syncing Triggers
-- "Sync my todo dashboard" → Auto-sync dashboard
-- "Refresh my todo list" → Auto-sync dashboard
-- "Update my dashboard" → Auto-sync dashboard
-- "Show me current risks/blockers" → Auto-sync dashboard
-- "What are my recent wins/achievements" → Auto-sync dashboard
-- "Update my risks dashboard" → Auto-sync dashboard
-- "Refresh my wins summary" → Auto-sync dashboard
+### Focus Generation Triggers
+- "What should I focus on today?" → Generate intelligent focus
+- "Help me prioritize my day" → Generate intelligent focus
+- "Set my daily focus" → Generate intelligent focus
+- "What are my top priorities?" → Generate intelligent focus
+- "Refresh my focus" → Generate intelligent focus
 
-### Status Report Triggers
-- "Show me my current status" → Generate status report
-- "Give me an overview" → Generate status report
-- "What's my workload like" → Generate status report
-- "Generate a status report" → Generate status report
-
-### Archive Triggers
-- "Archive my completed tasks" → Perform archive operation
-- "Clean up my completed tasks" → Perform archive operation
-- "Move completed items to archive" → Perform archive operation
-
-### Health Check Triggers
-- "Check if everything is working" → Perform health check
-- "Validate my system" → Perform health check
-- "Are there any issues" → Perform health check
+### Focus Negotiation Triggers
+- "Adjust my focus" → Discuss and refine the selected priorities
+- "I can't do [item] today" → Suggest alternatives from source files
+- "Add [task] to my focus" → Incorporate user request and rebalance
+- "Why did you pick [item]?" → Explain selection reasoning
+- "Show me other options" → Present alternative tasks from source files
 
 ## Key Relationships
-- **todo.md is a DASHBOARD** that aggregates action items, risks, and wins from source files
-- **Action items live in source files** (`knowledge/initiatives/`, `knowledge/people/`, `knowledge/routines.md`)
+- **todo.md is a DAILY FOCUS** intelligently curated from source files
+- **All tasks live in source files** (`knowledge/initiatives/`, `knowledge/people/`, `knowledge/routines/`)
 - **Update tasks in their source files**, not in todo.md
+- **Focus is negotiable** - user can discuss and adjust priorities
+- **AI explains reasoning** for each selected item
 - People in `knowledge/people/` should be linked to initiatives where relevant
-- Routines in `knowledge/routines.md` should be added to `todo.md` when relevant
-- **All risks, wins, and action items** are consolidated in todo.md
-- Dates and statuses should be consistent across files
-- Routines should cross-reference related initiatives and people
-- **Dashboard auto-syncs after updating source files**
 
 ## File Naming Conventions
 - Initiative files: `kebab-case.md` (e.g., `website-redesign.md`)
@@ -213,27 +137,27 @@ When updating files, consider:
 2. **Date consistency**: Keep "Last Contact" and "Last Updated" dates current
 3. **Action item tracking**: Ensure action items are reflected in both source and todo files
 4. **Status propagation**: Initiative status changes should update related tasks
-5. **Archive management**: Move completed tasks to archive sections weekly
-6. **Auto-sync dashboard**: Automatically refresh todo.md after updates
+5. **Routine completion**: When routine tasks are completed, update "Last Updated" date instead of marking complete
+6. **Archive management**: Move completed tasks to archive sections weekly
+7. **Auto-sync dashboard**: Automatically refresh todo.md after updates
 
 ## Template Usage
 - Always use templates for new files to maintain consistency
 - Help users copy from templates in each directory manually
 - Guide them to fill in ALL metadata sections for proper structure
-- Templates are in: knowledge/initiatives/_template.md, knowledge/people/_template.md
-- Routines are managed in single file: knowledge/routines.md
+- Templates are in: knowledge/initiatives/_template.md, knowledge/people/_template.md, knowledge/routines/_template.md
 
 ## Intelligent Assistance
-When user requests involve todo management:
-1. **Automatically perform dashboard operations** using encoded logic
-2. **Update related files** to maintain consistency
-3. **Auto-sync dashboard** after updating source files
-4. **Validate system health** proactively
-5. **Suggest next steps** based on current state
+When user requests involve focus management:
+1. **Generate strategic daily focus** with clear reasoning
+2. **Negotiate priorities** based on user constraints and preferences
+3. **Explain selection logic** when asked
+4. **Offer alternatives** when user can't complete suggested items
+5. **Update source files** when tasks are completed or modified
 
 ## Daily/Weekly Workflows
-- **Daily**: Update "Today's Focus" section in todo.md, provide status reports
-- **Weekly**: Archive completed tasks, review initiative statuses, check people progress
+- **Daily**: Generate intelligent "Today's Focus" with reasoning and negotiate priorities (automatically preserving any completed work from previous focus)
+- **Weekly**: Review source files and refresh understanding of priorities
 - **Monthly**: Review and update initiative timelines and people development
 
 ## Content Guidelines
@@ -244,62 +168,59 @@ When user requests involve todo management:
 - Track blockers and dependencies explicitly
 
 ## AI Integration Philosophy
-This system is designed to be **fully agentic** - the AI should:
-- **Automatically maintain** dashboard synchronization
-- **Intelligently aggregate** content from source files
-- **Understand relationships** across initiatives, people, and tasks
-- **Anticipate needs** based on user patterns and requests
-- **Reduce manual work** by automating all routine tasks
-- **Proactively suggest** optimizations and improvements
+This system is designed to be **your strategic daily partner** - the AI should:
+- **Intelligently curate** 3-5 strategic priorities from all available tasks
+- **Explain reasoning** for each selection to build trust and understanding
+- **Negotiate priorities** when user has constraints or different preferences
+- **Preserve completed work** automatically when refreshing focus
+- **Understand context** across initiatives, people, deadlines, and dependencies
+- **Adapt to user patterns** and learn what works for their workflow
+- **Act as thought partner** for strategic daily planning
+- **Use utility scripts** (.cursor/utils.sh) for system functions like date generation
 
 ## When Creating New Files
-1. **Help user copy from templates** (knowledge/initiatives/_template.md, knowledge/people/_template.md)
+1. **Help user copy from templates** (knowledge/initiatives/_template.md, knowledge/people/_template.md, knowledge/routines/_template.md)
 2. Guide them to update all metadata fields
 3. Add cross-references to related files
-4. **Auto-sync dashboard** to reflect new content
+4. **Offer to refresh focus** if new content affects priorities
 5. Consider updating initiative files if new people are added
-6. For routines, reference knowledge/routines.md for timing and details
+6. For routines, reference knowledge/routines/ files for timing and details
 
 ## When Updating Existing Files
 1. Check for cross-references that need updating
 2. Update relevant dates and progress
-3. Move completed items to archive sections
+3. Mark completed items appropriately:
+   - **Initiative/People files**: Mark tasks as complete `[x]`
+   - **Routine files**: Update "Last Updated" date in timing section
 4. Propagate status changes to related files
-5. **Auto-sync dashboard** to reflect changes
-6. **Validate system health** if major changes
-7. **Dashboard automatically includes** all risks, wins, and action items
+5. **Offer to refresh focus** if changes affect priorities
 
 ## Example Interactions
+**User**: "What should I focus on today?"
+**Cursor**: *First checks current focus for completed tasks, updates source files, then generates strategic focus with 3-5 items, each with source and reasoning*
+
+**User**: "I can't do the user interview analysis today - I'm in meetings all day"
+**Cursor**: *"I understand. Since that was urgent, let me suggest: 'Prepare Sarah's presentation review questions' (same impact, can do between meetings) or 'Finalize API documentation outline' (can do async). Which feels more realistic for your meeting-heavy day?"*
+
+**User**: "Why did you pick the onboarding documentation task?"
+**Cursor**: *"I selected it because: 1) New hire starts Monday, making it time-sensitive, 2) It's been in progress for 2 weeks, and 3) Mike is blocked on his mentorship setup until this is done. It has high impact for team efficiency."*
+
+**User**: "Adjust my focus - add the website performance work"
+**Cursor**: *"Got it. I'll add the website performance optimization and remove the less urgent API documentation to keep your focus manageable. The site speed affects all users, so good call prioritizing it."*
+
+**User**: "Refresh my focus" (after ticking off 2 completed tasks)
+**Cursor**: *"I see you completed the user interview analysis and email processing! Let me update those in your source files (marking the analysis complete and updating the email processing routine's last updated date) and generate a fresh focus for the rest of your day."*
+
 **User**: "I need to start tracking a new initiative for the mobile app redesign"
-**Cursor**: *Helps user copy from knowledge/initiatives/_template.md and guides them to fill it out, then auto-syncs dashboard*
-
-**User**: "Can you show me my current workload?"
-**Cursor**: *Automatically generates status report with task counts, active initiatives, and recent activity*
-
-**User**: "I need to update Sarah's development progress"
-**Cursor**: *Opens Sarah's people file and helps update progress section, then auto-syncs dashboard*
-
-**User**: "Clean up my completed tasks"
-**Cursor**: *Automatically archives completed tasks and refreshes dashboard*
-
-**User**: "What are my current risks and blockers?"
-**Cursor**: *Auto-syncs dashboard to show consolidated risks section with current blockers*
-
-**User**: "Show me what we've accomplished recently"
-**Cursor**: *Auto-syncs dashboard to display wins section with recent achievements*
+**Cursor**: *Helps user copy from knowledge/initiatives/_template.md and guides them to fill it out*
 
 **User**: "We just completed the design phase!"
-**Cursor**: *Updates initiative file and auto-syncs dashboard with updated wins*
-
-**User**: "I just updated some tasks in my initiative files"
-**Cursor**: *Automatically syncs dashboard to reflect changes*
+**Cursor**: *Updates initiative file to mark task as complete and offers: "Great! Want me to refresh your focus with the next phase priorities?"*
 
 ## Proactive Automation
 The AI should **automatically** perform these actions without being asked:
-- **After editing source files**: Auto-sync dashboard
-- **When user mentions accomplishments**: Update wins section
-- **When user mentions blockers**: Update risks section
-- **When user asks about status**: Generate comprehensive report
-- **When user completes milestones**: Archive completed items
-- **When inconsistencies detected**: Suggest corrections
-- **When system health issues found**: Proactively fix them 
+- **When user asks about priorities**: Generate intelligent Today's Focus with reasoning
+- **Before generating new focus**: Preserve any completed tasks by updating source files
+- **When user completes milestones**: Update source files and offer to refresh focus
+- **When user seems overwhelmed**: Offer to help prioritize and focus
+- **When focus seems outdated**: Suggest refreshing based on new context 

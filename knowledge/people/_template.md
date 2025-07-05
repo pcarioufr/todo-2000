@@ -21,3 +21,5 @@
 - [ ] *Task description*
 - [ ] *Task description*
 
+---
+*Template for persons tracking. Copy this template when creating new person files.* 

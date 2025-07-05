@@ -16,11 +16,13 @@
     "**/bower_components": true,
     "**/.git": true,
     "**/archive": true,
-    "**/*.bak": true
+    "**/*.bak": true,
+    "**/.cursor/utils.sh": true
   },
   "files.watcherExclude": {
     "**/archive/**": true,
-    "**/*.bak": true
+    "**/*.bak": true,
+    "**/.cursor/utils.sh": true
   },
   "cSpell.words": [
     "agentic",

@@ -1,0 +1,12 @@
+# Ignore all knowledge base content except templates
+knowledge/initiatives/*
+!knowledge/initiatives/_template.md
+
+knowledge/people/*
+!knowledge/people/_template.md
+
+knowledge/routines/*
+!knowledge/routines/_template.md
+
+# Keep personal todo.md private - example available in README.md
+todo.md 

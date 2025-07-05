@@ -19,7 +19,6 @@
 *What we learned and achieved, so far*
 
 
-
 ## 🚧 Progress
 *List of tasks and substasks with their owners*
 
@@ -33,7 +32,10 @@
 ## 🚨 Risks & Blockers
 *Challenges we have ahead, and mitigation tasks*
 
-- [ ] *Issue description*
+- [ ] *Challenge description*
     - [ ] *Mitigation substask description*
     - [ ] *Mitigation substask description*
-- [ ] *Issue description*
+- [ ] *Challenge description*
+
+---
+*Template for initiatives tracking. Copy this template when creating new initiative files.* 
