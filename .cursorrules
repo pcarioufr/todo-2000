@@ -44,53 +44,75 @@ When syncing todo.md, create ONLY a focused daily priority list:
 
 ## Your Strategic Priorities for Today
 
-[3-5 intelligently selected items with context]
+[3-5 intelligently selected items with context for your own work]
+
+## Check on Your Reports
+
+[Delegated tasks that are due today - for following up with team members]
 
 ---
 *This focus is AI-generated from your source files. Say "adjust my focus" to negotiate these priorities.*
 ```
 
 #### Selection Criteria:
-1. **Intelligently pick 3-5 items** from different sources:
-   - 1-2 from initiative files (high-impact or urgent)
-   - 1 from people files (development opportunities)
+1. **Your Strategic Priorities** - Intelligently pick 3-5 items for your own work:
+   - 1-2 from initiative files (high-impact or urgent tasks marked `[ ]`)
+   - 1 from people files (development opportunities or your management tasks)
    - 1 from routines (if due today)
    - 1 from customer files (relationship management or urgent issues)
    - 1 from scratch files (urgent one-offs or quick tasks)
    - 1 wildcard (user context, deadlines, blockers)
 
-2. **For each selected item, provide context:**
+2. **Check on Your Reports** - Surface delegated tasks marked `[>]` that are due today or overdue
+
+3. **For each selected item, provide context:**
    - **Source**: Which file it came from
    - **Why chosen**: Urgency, impact, dependencies, or strategic importance
    - **Context**: What makes this important today
 
-3. **Format each item as:**
+4. **Format each section as:**
 ```markdown
-- [ ] [Task description]
+## Your Strategic Priorities for Today
+- [ ] [Your task description]
   *From: [source file] | Why: [reason for selection] | Context: [additional context]*
+
+## Check on Your Reports
+- [>] [Delegated task] (Delegated to: [Name], Due: [Date])
+  *From: [source file] | Why: Due today/overdue | Context: [status and next steps]*
 ```
 
 #### Example Output:
 ```markdown
-- [ ] Complete user interview analysis for mobile app redesign
-  *From: mobile-app-redesign.md | Why: Due today, blocks design phase | Context: 5 interviews completed, need synthesis*
+## Your Strategic Priorities for Today
 
 - [ ] Review Sarah's technical presentation before 2 PM meeting
-  *From: sarah-johnson.md | Why: Time-sensitive, supports her promotion goal | Context: Leadership review meeting scheduled*
+  *From: sarah-johnson.md | Why: Time-sensitive, supports her promotion goal | Context: Leadership review meeting scheduled, you need to provide feedback*
+
+- [ ] Finalize API documentation outline
+  *From: website-refresh.md | Why: Team blocked without specs | Context: Your input needed before Mike can start implementation*
 
 - [ ] Email Processing (Monday routine)
   *From: email-processing.md | Why: Monday routine, foundation for other work | Context: Keeps inbox manageable*
+
+## Check on Your Reports
+
+- [>] Complete user interview analysis for mobile app redesign (Delegated to: Sarah, Due: 2025-01-15)
+  *From: mobile-app-redesign.md | Why: Due today | Context: 5 interviews completed, need to check if synthesis is ready*
+
+- [>] Update customer onboarding documentation (Delegated to: Mike, Due: 2025-01-14)
+  *From: big-client.md | Why: Overdue by 1 day | Context: New client starts Monday, check progress and offer help*
 ```
 
 
 ### Focus Selection Logic
 When generating daily focus, intelligently select tasks based on:
-1. **Urgency**: Overdue items or items with today's date
+1. **Urgency**: Overdue items (past due date) or items due today
 2. **Impact**: High-priority initiative milestones that move projects forward
 3. **Dependencies**: Tasks blocking other work or people
 4. **Balance**: Mix across initiatives, people development, and routines
 5. **User context**: Recent conversations, stated priorities, workload capacity
 6. **Strategic value**: Tasks that unlock future work or remove blockers
+7. **Due dates**: Prioritize tasks with approaching or past due dates
 
 **Note**: Always preserve completed work before generating new focus (see Progress Preservation Logic above)
 
@@ -173,14 +195,17 @@ When user requests involve focus management:
 
 ## Task Formatting Rules
 **ALL tasks across all files must follow this consistent format:**
-- **Main tasks**: Start with tick box `- [ ] [Task description]`
+- **Your tasks**: `- [ ] [Task description]` or `- [ ] [Task description] (Due: YYYY-MM-DD)`
+- **Delegated tasks**: `- [>] [Task description] (Delegated to: [Name], Due: YYYY-MM-DD)`
+- **Waiting tasks**: `- [?] [Task description] (Waiting for: [What/Who])`
+- **Completed tasks**: Mark with `[x]` instead of `[ ]`
 - **Subtasks**: Use additional indentation below main task:
   ```markdown
   - [ ] Main task description
     - [ ] Subtask 1
     - [ ] Subtask 2
   ```
-- **Completed tasks**: Mark with `[x]` instead of `[ ]`
+- **Date format**: Always use ISO format (YYYY-MM-DD) for consistency and AI parsing
 - **Apply consistently** across initiatives, people, routines, customers, and scratch files
 
 ## AI Integration Philosophy
