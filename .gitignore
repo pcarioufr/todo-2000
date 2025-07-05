@@ -8,5 +8,14 @@ knowledge/people/*
 knowledge/routines/*
 !knowledge/routines/_template.md
 
+knowledge/customers/*
+!knowledge/customers/_template.md
+
+knowledge/scratch/*
+!knowledge/scratch/_template.md
+
 # Keep personal todo.md private - example available in README.md
 todo.md 
+
+# Backup on driveupload
+.tmp.driveupload

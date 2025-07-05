@@ -6,6 +6,8 @@ This is an agentic daily focus system with interconnected files:
 - `knowledge/initiatives/` - Initiative-specific information and status
 - `knowledge/people/` - People management and interaction history
 - `knowledge/routines/` - Recurring activities and processes
+- `knowledge/customers/` - Customer relationship management and status
+- `knowledge/scratch/` - Universal capture space for on-the-fly tasks and information
 
 ## Daily Focus Processing Logic
 The AI automatically generates an intelligent daily focus by strategically selecting 3-5 priorities from all source files. **No external scripts needed** - all logic is encoded in these rules.
@@ -53,6 +55,8 @@ When syncing todo.md, create ONLY a focused daily priority list:
    - 1-2 from initiative files (high-impact or urgent)
    - 1 from people files (development opportunities)
    - 1 from routines (if due today)
+   - 1 from customer files (relationship management or urgent issues)
+   - 1 from scratch files (urgent one-offs or quick tasks)
    - 1 wildcard (user context, deadlines, blockers)
 
 2. **For each selected item, provide context:**
@@ -120,7 +124,7 @@ Recognize these user requests and **automatically perform the actions**:
 
 ## Key Relationships
 - **todo.md is a DAILY FOCUS** intelligently curated from source files
-- **All tasks live in source files** (`knowledge/initiatives/`, `knowledge/people/`, `knowledge/routines/`)
+- **All tasks live in source files** (`knowledge/initiatives/`, `knowledge/people/`, `knowledge/routines/`, `knowledge/customers/`, `knowledge/scratch/`)
 - **Update tasks in their source files**, not in todo.md
 - **Focus is negotiable** - user can discuss and adjust priorities
 - **AI explains reasoning** for each selected item
@@ -145,7 +149,7 @@ When updating files, consider:
 - Always use templates for new files to maintain consistency
 - Help users copy from templates in each directory manually
 - Guide them to fill in ALL metadata sections for proper structure
-- Templates are in: knowledge/initiatives/_template.md, knowledge/people/_template.md, knowledge/routines/_template.md
+- Templates are in: knowledge/initiatives/_template.md, knowledge/people/_template.md, knowledge/routines/_template.md, knowledge/customers/_template.md, knowledge/scratch/_template.md
 
 ## Intelligent Assistance
 When user requests involve focus management:
@@ -167,6 +171,18 @@ When user requests involve focus management:
 - Keep personal notes in people files for relationship building
 - Track blockers and dependencies explicitly
 
+## Task Formatting Rules
+**ALL tasks across all files must follow this consistent format:**
+- **Main tasks**: Start with tick box `- [ ] [Task description]`
+- **Subtasks**: Use additional indentation below main task:
+  ```markdown
+  - [ ] Main task description
+    - [ ] Subtask 1
+    - [ ] Subtask 2
+  ```
+- **Completed tasks**: Mark with `[x]` instead of `[ ]`
+- **Apply consistently** across initiatives, people, routines, customers, and scratch files
+
 ## AI Integration Philosophy
 This system is designed to be **your strategic daily partner** - the AI should:
 - **Intelligently curate** 3-5 strategic priorities from all available tasks
@@ -179,7 +195,7 @@ This system is designed to be **your strategic daily partner** - the AI should:
 - **Use utility scripts** (.cursor/utils.sh) for system functions like date generation
 
 ## When Creating New Files
-1. **Help user copy from templates** (knowledge/initiatives/_template.md, knowledge/people/_template.md, knowledge/routines/_template.md)
+1. **Help user copy from templates** (knowledge/initiatives/_template.md, knowledge/people/_template.md, knowledge/routines/_template.md, knowledge/customers/_template.md, knowledge/scratch/_template.md)
 2. Guide them to update all metadata fields
 3. Add cross-references to related files
 4. **Offer to refresh focus** if new content affects priorities
@@ -190,10 +206,18 @@ This system is designed to be **your strategic daily partner** - the AI should:
 1. Check for cross-references that need updating
 2. Update relevant dates and progress
 3. Mark completed items appropriately:
-   - **Initiative/People files**: Mark tasks as complete `[x]`
+   - **Initiative/People/Customer files**: Mark tasks as complete `[x]`
    - **Routine files**: Update "Last Updated" date in timing section
+   - **Scratch file**: Mark tasks as complete `[x]`
 4. Propagate status changes to related files
 5. **Offer to refresh focus** if changes affect priorities
+
+## Scratch File Maintenance
+When working with `knowledge/scratch/` files:
+- **Pull urgent tasks** into daily focus from "🎯 Everything Else" section
+- **Suggest processing** items into proper knowledge files when they become significant
+- **Help organize** meeting notes and conversations when they become significant
+- **Encourage migration** of recurring items to proper initiative/routine files
 
 ## Example Interactions
 **User**: "What should I focus on today?"
