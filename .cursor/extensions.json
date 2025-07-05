@@ -1,14 +1,5 @@
 {
   "recommendations": [
-    "yzhang.markdown-all-in-one",
-    "DavidAnson.vscode-markdownlint",
-    "bierner.markdown-preview-github-styles",
-    "bierner.markdown-mermaid",
-    "shd101wyy.markdown-preview-enhanced",
-    "ms-vscode.vscode-json",
-    "streetsidesoftware.code-spell-checker",
-    "oderwat.indent-rainbow",
-    "formulahendry.auto-rename-tag",
-    "bradlc.vscode-tailwindcss"
+    "yzhang.markdown-all-in-one"
   ]
 } 

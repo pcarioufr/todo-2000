@@ -1,74 +1,65 @@
 # Agentic Todo System 🤖
 
-A structured todo management system designed to maintain context about projects, people, and tasks - built to work intelligently with AI agents like Cursor for seamless task management.
+A structured todo management system designed to track initiatives, people, and tasks - built to work intelligently with AI agents like Cursor for seamless task management.
 
 ## 📁 Structure
 
 ```
 todo-2000/
-├── todo.sh                 # 🤖 Automation engine (handled by Cursor)
 ├── todo.md                 # 📋 Main dashboard with tasks, risks, and wins
-├── .cursorrules            # 🧠 Cursor AI rules & context
+├── .cursorrules            # 🧠 Cursor AI rules & automation (the brain!)
 ├── .cursor/
 │   ├── settings.json       # ⚙️ Workspace settings
 │   └── extensions.json     # 🔧 Recommended extensions
-├── projects/              # 🚀 Project-specific information
-│   ├── template.md        # Template for new projects
-│   └── website-redesign.md # Example project
-├── people/               # 👥 People and contact management
-│   ├── template.md       # Template for new contacts
-│   └── sarah-johnson.md  # Example person
-├── routines/             # 🔄 Recurring activities and processes
-│   ├── template.md       # Template for new routines
-│   ├── slack-notifications.md # Daily routine example
-│   ├── email-processing.md    # Weekly routine example
-│   └── performance-reviews.md # Monthly routine example
-├── context/              # 📝 Meeting notes and additional context
-│   └── meeting-notes-template.md
+├── knowledge/            # 📁 All structured knowledge files
+│   ├── initiatives/      # 🚀 Focused work streams
+│   ├── people/           # 👥 People profiles and development
+│   └── routines.md       # 🔄 Recurring activities and processes
+
 └── README.md             # 📖 This file
 ```
 
 ## 🎯 Core Concept
 
-This system is designed around the principle that effective task management requires **context**. Traditional todo apps exist in isolation, but real work happens in the context of:
+This system is designed around the principle that effective task management requires **relationships** but shouldn't be overwhelming. We keep it simple while maintaining the connections that matter:
 
-- **Projects** with timelines, stakeholders, and dependencies
-- **People** with their own priorities, communication styles, and availability
-- **Routines** that need to be done regularly to maintain productivity
-- **Context** from meetings, decisions, and ongoing discussions
+- **Initiatives** - focused work streams with clear progress tracking
+- **People** - team members, their strengths, and development focus  
+- **Routines** - recurring activities that keep things running smoothly
 
-All of this is consolidated into a single **todo.md dashboard** that includes action items, risks & blockers, and wins & achievements in one unified view.
+
+All of this is consolidated into a single **todo.md dashboard** that shows you everything at a glance while keeping rich detail in source files.
 
 ## 🚀 How It Works
 
-### **Context-First Dashboard Approach** 📊
-This system follows a **dashboard-based approach**:
-- **Work happens in context files** (`projects/`, `people/`, `routines/`)
-- **todo.md is a unified dashboard** that aggregates action items, risks, and wins from all context files
-- **Rich context stays where it belongs** - in dedicated files for each domain
-- **Daily priorities are managed** in the "Today's Focus" section of todo.md
-- **Update tasks in their source files**, then sync the dashboard with one command
+### **Simple Dashboard Approach** 📊
+This system follows a **source-first, dashboard-driven approach**:
+- **Work happens in simple source files** (`knowledge/initiatives/`, `knowledge/people/`, `knowledge/routines.md`)
+- **todo.md is your unified dashboard** - everything important in one place
+- **Templates are deliberately simple** to encourage usage over perfection
+- **Daily priorities managed manually** in "Today's Focus" 
+- **Just ask Cursor to sync**: "Refresh my todo dashboard"
 
 ### **Just Talk to Cursor** 💬
 This system is fully **agentic** - you don't need to learn commands or remember syntax. Just tell Cursor what you want in natural language:
 
-**"Create a new project for mobile app redesign"**
-→ Cursor automatically creates the project file and helps you fill it out
+**"Track progress on mobile app redesign initiative"**
+→ Cursor opens the initiative file and helps you update progress
 
 **"Show me my current workload"**
 → Cursor generates a status report with your active tasks and priorities
 
-**"Add John Smith to my contacts"**
-→ Cursor creates a person file and sets up the template
+**"Update John Smith's development goals"**
+→ Cursor opens John's person file and helps you update it
 
 **"Archive my completed tasks"**
 → Cursor moves completed items to the archive automatically
 
-**"Create meeting notes for today's standup"**
-→ Cursor creates a meeting notes file with today's date
+**"Update my email processing routine"**
+→ Cursor opens the routine file and helps you update it
 
-**"Set up a routine for weekly email processing"**
-→ Cursor creates a routine file with template and scheduling info
+**"Show me my current routine schedule"**
+→ Cursor generates a report showing all your routines and their schedules
 
 **"What are my current risks and blockers?"**
 → Cursor syncs todo.md dashboard showing risks section with current blockers
@@ -77,7 +68,7 @@ This system is fully **agentic** - you don't need to learn commands or remember 
 → Cursor syncs todo.md dashboard showing wins section with achievements
 
 **"Sync my todo dashboard"**
-→ Cursor refreshes todo.md with latest action items, risks, and wins from all context files
+→ Cursor refreshes todo.md with latest action items, risks, and wins from all source files
 
 ## 📋 Natural Language Workflows
 
@@ -88,32 +79,28 @@ Instead of manual commands, just tell Cursor:
 - *"Mark the API documentation as completed"*
 - *"What's my current status?"*
 
-### Project Management
+### Initiative Management
 Simply say:
-- *"I need to track a new project called [project name]"*
-- *"Update the website redesign project status"*
-- *"What projects are currently active?"*
-- *"Show me the timeline for [project name]"*
+- *"Update the website redesign initiative status"*
+- *"What initiatives are currently active?"*
+- *"Add some progress to [initiative name]"*
+- *"Show me initiative progress"*
 
 ### People Management
 Just ask:
-- *"Add [person name] to my contacts"*
-- *"I had a meeting with Sarah yesterday, update her notes"*
-- *"When did I last talk to [person name]?"*
-- *"Update my contact dates"*
+- *"Update [person name]'s development goals"*
+- *"What are [person name]'s strengths?"*
+- *"Add a task for [person name]"*
+- *"Show me [person name]'s progress"*
 
-### Meeting & Context
-Tell Cursor:
-- *"Create meeting notes for [meeting name]"*
-- *"I need to document today's project review"*
-- *"Add action items from the client call"*
+
 
 ### Routine Management
 Ask Cursor:
-- *"Set up a routine for weekly email processing"*
-- *"Create a daily routine for slack notifications"*
-- *"Add my performance reviews routine to this month's tasks"*
-- *"Schedule my weekly planning routine"*
+- *"Show me my routine schedule"*
+- *"Update my email processing routine"*
+- *"Add routine reminders to today's tasks"*
+- *"Help me optimize my routines"*
 
 ### Dashboard Management
 Tell Cursor:
@@ -128,10 +115,9 @@ Tell Cursor:
 
 ### **Context Awareness**
 Cursor understands the relationships between:
-- Tasks and their associated projects
-- People and their involvement in projects
+- Tasks and their associated initiatives
+- People and their development needs
 - Routines and their scheduling requirements
-- Meeting notes and action items
 - Deadlines and priorities
 - **All consolidated in one unified dashboard**
 
@@ -139,9 +125,8 @@ Cursor understands the relationships between:
 Cursor will:
 - Suggest updating related files when you make changes
 - Recommend archiving completed tasks
-- Remind you to update contact information
 - Suggest when routines are due based on frequency
-- Automatically sync dashboard when context files are updated
+- Automatically sync dashboard when source files are updated
 - Help maintain consistency across files
 
 ### **Smart Automation**
@@ -158,7 +143,7 @@ Behind the scenes, Cursor:
 ### First Time Setup
 1. **Ask Cursor**: *"Check if my todo system is working properly"*
 2. **Request**: *"Show me my current system status"*
-3. **Customize**: *"Help me update the example files with my actual projects"*
+3. **Sync**: *"Refresh my todo dashboard"*
 
 ### Daily Use
 1. **Morning**: *"Show me what I should focus on today"*
@@ -167,52 +152,52 @@ Behind the scenes, Cursor:
 
 ### Weekly Review
 1. **Status check**: *"Generate a weekly status report"*
-2. **Maintenance**: *"Update my contact dates"*
-3. **Planning**: *"Help me plan next week's priorities"*
+2. **Maintenance**: *"Update people progress"*
+3. **Archive**: *"Archive my completed tasks"*
 
 ## 🔧 Customization
 
-### Tailoring to Your Needs
-Tell Cursor what you want:
-- *"Modify the project template to include budget tracking"*
-- *"Add a new section to the todo list for client work"*
-- *"Update the people template with additional fields"*
+### Growing the System
+As you get comfortable, ask Cursor to:
+- *"Add a section to track initiative budgets"*
+- *"Help me organize my existing files better"*
+- *"Add fields I'm missing in my people files"*
 
-### Adapting Workflows
-Ask Cursor to:
-- *"Create a custom template for weekly reviews"*
-- *"Set up a recurring task for monthly planning"*
-- *"Add emoji categories that match my workflow"*
+### Keeping It Simple
+The system focuses on what matters:
+- *"Help me update my existing initiatives"*
+- *"How do I track someone's development?"*
+- *"Show me how to use the routine tracking"*
 
 ## 💡 Best Practices
 
+### **Start Simple**
+- Copy templates to set up your first initiative files
+- Add people files when you need to track their development
+- Set up routine files only for things you actually do regularly
+
 ### **Natural Communication**
-- Speak to Cursor as you would to a colleague
-- Be specific about what you want to achieve
-- Don't worry about exact syntax or commands
+- Talk to Cursor like a colleague: "I need to track X"
+- Focus on what you want to achieve, not how
+- Ask for help when you're unsure
 
-### **Trust the Automation**
-- Let Cursor handle file creation and maintenance
-- Focus on content rather than structure
-- Ask for help when you need clarification
+### **Grow Gradually**
+- Use the system for a week before adding complexity
+- Let Cursor suggest improvements based on your patterns
+- Add fields to templates only when you need them
 
-### **Regular Interaction**
-- Check in with Cursor daily for status updates
-- Ask for weekly reviews and maintenance
-- Use Cursor to spot patterns and suggest improvements
+## 🚀 System Philosophy
 
-## 🚀 Future Enhancements
-
-This system is designed to evolve with advanced AI capabilities:
-- **Predictive task scheduling** based on patterns
-- **Automatic priority adjustment** based on deadlines
-- **Smart meeting preparation** with relevant context
-- **Natural language querying** of your entire system
+This system is designed to **grow with you**:
+- **Start simple** - basic templates you'll actually use
+- **Add complexity gradually** - as you discover what you need
+- **Stay focused** - dashboard shows what matters today
+- **Trust the process** - let Cursor handle the tedious parts
 
 ## 🧠 Cursor Integration
 
 This system is fully optimized for Cursor:
-- **Intelligent understanding** of your project structure
+- **Intelligent understanding** of your initiative structure
 - **Proactive automation** based on natural language
 - **Context-aware suggestions** for better productivity
 - **Seamless maintenance** without manual intervention
@@ -222,40 +207,24 @@ This system is fully optimized for Cursor:
 ## 📚 Reference
 
 <details>
-<summary>Technical Commands (for reference - Cursor handles these automatically)</summary>
+<summary>Natural Language Commands (just tell Cursor what you need)</summary>
 
-### Manual Commands (if needed)
-```bash
-# Interactive menu
-./todo.sh
-
-# Direct commands
-./todo.sh project         # Create new project
-./todo.sh person          # Create new person
-./todo.sh meeting         # Create meeting notes
-./todo.sh routine         # Create new routine
-./todo.sh sync            # Sync todo.md dashboard from context files
-./todo.sh report          # Generate status report
-./todo.sh health          # Check system health
-./todo.sh archive         # Archive completed tasks
-./todo.sh update-contacts # Update contact dates
+### Dashboard Management
+```
+"Sync my todo dashboard"          # Refresh todo.md from all source files
+"Show me my current status"       # Generate comprehensive status report
+"Check if everything is working"  # Validate system health
+"Archive my completed tasks"      # Move completed items to archive
+"Update people progress"          # Help update people development files
 ```
 
-### Maintenance Commands
-```bash
-# Search across all files
-grep -r "- \[ \]" . --include="*.md" | grep -v ".git"
-
-# File consistency checks
-for file in projects/*.md; do
-    if ! grep -q "^**Status:**" "$file"; then
-        echo "Missing status in $file"
-    fi
-done
-
-# Status updates
-today=$(date +%Y-%m-%d)
-sed -i.bak "s/Last updated: .*/Last updated: $today/" projects/*.md
+### File Management
+```
+"Create a new initiative for X"   # Copy template and help fill it out
+"Add a person file for Y"         # Copy template and help set it up
+"Update my routines"              # Help modify routine schedules
+"Show me my current risks"        # Display blockers and issues
+"What wins should I celebrate?"   # Show recent achievements
 ```
 
 ### Template Snippets
@@ -263,9 +232,9 @@ sed -i.bak "s/Last updated: .*/Last updated: $today/" projects/*.md
 # Quick task addition
 - [ ] [Task description] - [Due date]
 
-# Project reference
-### Project: [Project Name]
-- [ ] [Task related to project]
+# Initiative reference
+### Initiative: [Initiative Name]
+- [ ] [Task related to initiative]
 
 # Person interaction
 ### [Date] - [Interaction Type]
